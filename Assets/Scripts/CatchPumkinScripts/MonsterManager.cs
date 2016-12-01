@@ -11,6 +11,7 @@ public class MonsterManager : MonoBehaviour
     public GameObject monsterPrefab;
     public GameObject myCamera;
     public List<GameObject> monsterList;
+    public List<int> monsterSeed;
     //public GameObject particle;
 
     int monsterCount;
@@ -22,6 +23,7 @@ public class MonsterManager : MonoBehaviour
     float time;
     bool isStopGame;
 
+    int randomNum;
     float createTime = 2.0f;
     int maxMonster = 9;
     bool isGameOver = false;
@@ -34,6 +36,7 @@ public class MonsterManager : MonoBehaviour
     public Text pointText;
     public Text scoreMessage;
     public Text dialogMessage;
+
 
     void Start()
     {
@@ -90,11 +93,37 @@ public class MonsterManager : MonoBehaviour
     {
         if (isStopGame)
             return;
-
         CheckTime();
+        //MonsterMove();
         DrawGameInfo();
         CheckMonsterCount();
     }
+
+    /*void MonsterMove()
+    {
+        //animationTime = Random.Range(-3f, 3f);
+        //animationTime -= Time.deltaTime;
+
+        for (int i = 0; i < monsterList.Count; i++)
+        {
+            //UnityEngine.Debug.Log(i + " "  + monsterList[i].GetComponent<MonsterAnimationTime>().animationTime);
+            monsterList[i].GetComponent<MonsterAnimationTime>().animationTime -= Time.deltaTime;
+            if (monsterList[i].GetComponent<MonsterAnimationTime>().animationTime > 0)
+            {
+
+                monsterList[i].transform.Translate(Vector3.forward * (float)0.005);
+            }
+            else if (monsterList[i].GetComponent<MonsterAnimationTime>().animationTime < 0 && monsterList[i].GetComponent<MonsterAnimationTime>().animationTime >= -3f)
+            {
+                monsterList[i].transform.Translate(Vector3.back * (float)0.005);
+            }
+            else
+                monsterList[i].GetComponent<MonsterAnimationTime>().animationTime = 3f;
+
+            monsterList[i].transform.LookAt(myCamera.transform.position);
+            monsterList[i].transform.Rotate(-90, 0, 0);
+        }
+    }*/
 
     void InitGame()
     {
@@ -171,11 +200,11 @@ public class MonsterManager : MonoBehaviour
     void MakeMonster(int count)
     {
         GameObject monster;
-
+       
         for (int i=0; i<count; i++)
         {
             int idx = UnityEngine.Random.Range(1, points.Length);
-
+           
             monster = (GameObject)Instantiate(monsterPrefab, points[idx].position, points[idx].rotation);
             monsterList.Add(monster);
 
@@ -183,6 +212,7 @@ public class MonsterManager : MonoBehaviour
             monster.transform.Rotate(-90, 0, 0);
         }
     }
+
 
     public void OnPlayButton()
     {
