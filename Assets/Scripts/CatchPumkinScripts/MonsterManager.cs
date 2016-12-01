@@ -11,6 +11,7 @@ public class MonsterManager : MonoBehaviour
     public GameObject monsterPrefab;
     public GameObject myCamera;
     public List<GameObject> monsterList;
+    //public GameObject particle;
 
     int monsterCount;
     int score;
@@ -126,6 +127,7 @@ public class MonsterManager : MonoBehaviour
         {
             if (monsterList[i] == null)
             {
+                
                 monsterList.RemoveAt(i);
                 score += 10;
                 totalScore += score;
